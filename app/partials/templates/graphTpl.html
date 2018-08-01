@@ -1,0 +1,27 @@
+<section id="home-section" class="table-section">
+  <h4>APPLICATION TOPOLOGY</h4>
+  <!--<h5><a href="#home">www.&lt;as3_demo_url&gt;.com</a></h5>-->
+    <!-- Force layout Chart of BIG IP network traffic -->
+      <div ng-show="graph.inLimit" custom-graph data="graph.data" class="svg-graph"></div>
+      <div ng-show="!graph.inLimit" class="no-d3">
+        <div class="error-container"><i class="icon icon-d3-error"></i>
+          <div class="heading">
+            <h2>VISUALIZATION OF NETWORK TOPOLOGY NOT AVAILABLE</h2></div>
+        </div>
+      </div>
+      <!-- End Table -->
+      <div class="panel-body decoder-ring row">
+        <div class="col-md-12">
+          <ul>
+            <li><div class="circle node circle-bigip"></div>BIG IP</li>
+            <li><div class="circle node circle-tenant"></div>Tenant</li>
+            <li><div class="circle node circle-application"></div>Application</li>
+            <li><div class="circle node circle-service"></div>Service</li>
+            <li><div class="circle node circle-virtualserver"></div>Virtual Server</li>
+            <li><div class="circle node circle-pool"></div>Pool</li>
+            <li><div class="circle node circle-online"></div>Online Pool Member</li>
+            <li><div class="circle node circle-offline"></div>Offline Pool Member</li>
+          </ul>
+        </div>
+      </div>
+</section>

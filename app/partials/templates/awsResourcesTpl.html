@@ -1,0 +1,7 @@
+<h4>AWS RESOURCES</h4>
+  <section id="node-section" class="node-section mt-1">
+    <!--<div ng-hide="node.dataLoaded">LOADING....</div>-->
+    <div class="grid node-container" ui-grid="node.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-validate ui-grid-selection ui-grid-resize-columns>
+      <div ng-show="node.gridOptions.data.length === 0" class="watermark">No Nodes available</div>
+    </div>
+  </section>

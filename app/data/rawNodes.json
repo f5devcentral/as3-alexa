@@ -1,0 +1,111 @@
+{
+    "nodes": [
+    {
+        "status": "online",
+        "name": "Server 1",
+        "id": "i-05dc6aa9ac1c41fd7",
+        "ip": "172.31.6.100",
+        "port": "7",
+        "vpc": "vpc-f906f69d",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 1"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "Lorem ipsum dolor sit amet, consectetur"
+    },
+    {
+        "status": "online",
+        "name": "Server 2",
+        "id": "i-06e5d7ec3eb8135a3",
+        "ip": "172.31.24.70",
+        "port": "7",
+        "vpc": "vpc-f906f69d",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 2"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "sed do eiusmod tempor incididunt ut labore"
+    },
+    {
+        "status": "online",
+        "name": "Server 3",
+        "id": "i-072abfea9f67d7077",
+        "ip": "10.0.19.213",
+        "port": "7",
+        "vpc": "vpc-dd49b0b9",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 3"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "Excepteur sint occaecat cupidatat"
+    },
+    {
+        "status": "online",
+        "name": "Server 4",
+        "id": "i-046abfea9f67d7077",
+        "ip": "10.0.19.113",
+        "port": "7",
+        "vpc": "vpc-dd49b0b9",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 3"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "Excepteur sint occaecat cupidatat"
+    },
+    {
+        "status": "online",
+        "name": "Server 5",
+        "id": "i-012abfea9f67d7077",
+        "ip": "10.0.19.56",
+        "port": "7",
+        "vpc": "vpc-dd49b0b9",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 3"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "Excepteur sint occaecat cupidatat"
+    },
+    {
+        "status": "offline",
+        "name": "Server 6",
+        "id": "i-09c5447a71ccd1d1f",
+        "ip": "172.31.42.93",
+        "port": "2",
+        "vpc": "vpc-f906f69d",
+        "tags": [
+        {
+            "key": "Name",
+            "value": "Server 4"
+        },
+        {
+            "key": "Application",
+            "value": "AS3 Demo"
+        }],
+        "description": "Duis aute irure dolor in reprehende"
+    }]
+}

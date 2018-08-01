@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="alexaApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Alexa AS3 Dashboard</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1"> 
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/styles/lib/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/styles/lib/ui-grid.min.css">
+  <link rel="stylesheet" href="assets/styles/build.css">
+  <link rel="stylesheet" href="assets/styles/styles.css">
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div ui-view class="main-container" ng-controller="MainCtrl as main"></div>
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="lib/angularlib/angular.js"></script>
+  <script src="lib/angularlib/angular-resource.js"></script>
+  <script src="lib/angularlib/angular-touch.js"></script>
+  <script src="lib/angularlib/angular-ui-router.js"></script>
+  <script src="lib/angularlib/angular-cookies.js"></script>
+  <script src="lib/angularlib/ui-router-tabs.js"></script>
+  <script src="lib/angularlib/angular-animate.js"></script>
+  <script src="lib/angularlib/angular-sanitize.js"></script>
+  <script src="lib/jquery-3.1.0.min.js"></script>
+  <script src="lib/angularlib/ui-bootstrap-tpls.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/angularlib/angular-spinners.js"></script>
+  <script src="lib/ui-grid.min.js"></script>
+  <script src="lib/d3.v4.min.js"></script>
+  <script src="lib/d3-tip.js"></script>
+  <script src="app.js"></script>
+  <script src="components/common/commonServices.js"></script>
+  <script src="components/home/homeServices.js"></script>
+  <script src="components/node/nodeServices.js"></script>
+  <script src="components/home/homeDirectives.js"></script>
+  <script src="components/main/mainControllers.js"></script>
+  <script src="components/home/homeControllers.js"></script>
+  <script src="components/node/nodeControllers.js"></script>
+  <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  </head>
+</body>
+
+</html>

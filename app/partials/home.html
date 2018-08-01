@@ -1,0 +1,16 @@
+<!-- Dashboard -->
+<div ng-include class="header" src="'partials/header.html'" ng-cloak></div>
+<div class="row">
+</div>
+<div class="container body-container">
+  <div class="row top-container">
+  <div ng-include class="top-section col-md-7" src="'partials/templates/graphTpl.html'" ng-controller="GraphCtrl as graph" ng-cloak></div>
+  <div ng-include class="top-section col-md-5" src="'partials/templates/alexaSkillsTpl.html'" ng-controller="HomeCtrl as app" ng-cloak></div> 
+</div>
+<br />
+  <div class="row">
+<div ng-include class="top-section col-md-12" src="'partials/templates/awsResourcesTpl.html'" ng-controller="NodeCtrl as node" ng-cloak></div>
+<!--<div ng-include class="top-section col-md-5" src="'partials/templates/alexaRecorderTpl.html'" ng-controller="HomeCtrl as app" ng-cloak></div>-->
+</div>
+</div>
+<div ng-include class="footer" src="'partials/footer.html'" class="row" ng-cloak></div>

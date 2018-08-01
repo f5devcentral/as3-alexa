@@ -1,0 +1,11 @@
+<div class="btn-group tags-container pull-left" uib-dropdown keyboard-nav dropdown-append-to-body ng-show="COL_FIELD.length > 0">
+  <button id="simple-btn-keyboard-nav" type="button" class="btn btn-default tag-btn" uib-dropdown-toggle>
+    <span class="glyphicon glyphicon-triangle-bottom"></span>
+  </button>
+  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+    <li rolw="menuitem" ng-repeat="tag in COL_FIELD">{{tag.key}} : {{tag.value}}</li>
+  </ul>
+</div>
+<!--<div ng-show="!grid.appScope.node.info.vpc" class="pull-right">
+	<button ng-click="grid.appScope.node.addEditTags(row.entity)" uib-tooltip="Add/Edit Tags" tooltip-animation="true" tooltip-placement="auto top-left" tooltip-class="tooltip-class"><i class="glyphicon glyphicon-edit"></i></button>
+</div>-->

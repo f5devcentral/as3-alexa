@@ -1,0 +1,6 @@
+{
+    "globalstrict": true,
+    "undef": true,
+    "unused": true,
+    "predef": ["angular", "FileReader"]
+}

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "type": "server",
+    "id": "",
+    "attributes": {
+      "name": "",
+      "description": "",
+      "port": ""
+    }
+  }
+}

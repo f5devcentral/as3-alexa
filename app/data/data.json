@@ -1,0 +1,73 @@
+{
+    "list": [
+    {
+        "nodes": [
+        {
+            "id": "BIG IP",
+            "group": 50,
+            "type": "bigip",
+            "status": "online"
+        },
+        {
+            "id": "Sample_01",
+            "group": 40,
+            "type": "tenant",
+            "status": "online"
+        },
+        {
+            "id": "A1",
+            "group": 30,
+            "type": "application",
+            "status": "online"
+        },
+        {
+            "id": "serviceMain00",
+            "group": 20,
+            "type": "service",
+            "status": "online"
+        },
+        {
+            "id": "serviceMain",
+            "group": 10,
+            "type": "virtualServer",
+            "status": "online"
+        },
+        {
+            "id": "198.19.192.2",
+            "group": 5,
+            "type": "poolMember",
+            "status": "online"
+        },
+        {
+            "id": "198.19.192.3",
+            "group": 5,
+            "type": "poolMember",
+            "status": "online"
+        }],
+        "links": [
+        {
+            "source": "BIG IP",
+            "target": "Sample_01"
+        },
+        {
+            "source": "Sample_01",
+            "target": "A1"
+        },
+        {
+            "source": "A1",
+            "target": "serviceMain00"
+        },
+        {
+            "source": "serviceMain00",
+            "target": "serviceMain"
+        },
+        {
+            "source": "serviceMain",
+            "target": "198.19.192.2"
+        },
+        {
+            "source": "serviceMain",
+            "target": "198.19.192.3"
+        }]
+    }]
+}
