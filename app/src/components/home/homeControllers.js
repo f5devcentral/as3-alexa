@@ -51,11 +51,8 @@ Home Controllers - Base Controllers for Home Page
         graph.pollData = function (polling) {
             GraphService.graphResource.query((data) => {
                 if (data.message.tenants) {
-                    console.log('graph data Polling =============== ');
                     // Process data
                     const graphData = GraphService.processData(data);
-                    console.log('data ================ ');
-                    console.log(graphData);
                     if (graphData.list[0]) {
                         if (angular.equals(graphData.list[0], graph.latestGraph())) {
                             graph.inLimit = true;
@@ -95,8 +92,6 @@ Home Controllers - Base Controllers for Home Page
         graph.getData = function () {
             GraphService.graphResource.query((data) => {
                 if (data.message.tenants) {
-                    console.log('data ================ ');
-                    console.log(data);
                     // Process data
                     const graphData = GraphService.processData(data);
                     if (graphData.list[0]) {

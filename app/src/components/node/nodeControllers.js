@@ -103,8 +103,6 @@ Node Controllers
 
         node.getData = function () {
             NodeFactory.resource.query((data) => {
-                console.log('data ============== ');
-                console.log(data.message);
                 const nodes = data.message;
                 // Keep nodes list in service to be used by DNodes
                 NodeFactory.setList(nodes);

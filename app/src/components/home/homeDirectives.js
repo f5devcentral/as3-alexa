@@ -10,7 +10,6 @@
     angular.module('homeDirectives', []).
     // Example Bubble Chart
     directive('customGraph', function ($window) {
-        console.log('values from directive: ');
         return {
             restrict: 'EA',
             scope: {data: '='},
@@ -163,8 +162,6 @@
                 enter().append('circle').
                 attr('r', function (d) {
                     if (d.group === 50) { // Big IP
-                        console.log('radius for bigip');
-                        console.log(d);
                         return 25;
                     } else if (d.group === 40) {
                         return 16;
