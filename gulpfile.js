@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify');
 const stream = require('merge-stream');
 const less = require('gulp-less');
 const path = require('path');
+const test = 'hello';
 
 
 gulp.task('clientjs', function() {
