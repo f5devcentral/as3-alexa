@@ -31,18 +31,15 @@ class HttpServices {
         case 'GET_BIGIP_NODES': 
         _options.path = '/mgmt/tm/ltm/node';
         _options.method = 'Get';
-        _body = {};
         console.log('Get BIG IP NODES');
         break;
         case 'GET_DECLARE':
         _options.path = '/mgmt/shared/appsvcs/declare';
         _options.method = 'Get';
-        _body = {};
         break;
         case 'DELETE_DECLARE':
         _options.path = '/mgmt/shared/appsvcs/declare';
         _options.method = 'Delete';
-        _body = {};
         break;
       default:
       }
@@ -52,7 +49,7 @@ class HttpServices {
         res.on("data", function (chunk) {                                                          
           body.push(chunk);                                                                        
         }).on("end", function () {                                                                 
-          body = Buffer.concat(body).toString();                                                   
+          body = Buffer.concat(body).toString(); 
           func(null, res, body);                                                                   
         }).on("error", function (err) {                                                            
           func(err, res, body);                                                                    
