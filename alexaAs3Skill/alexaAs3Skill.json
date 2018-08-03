@@ -1,0 +1,278 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "application services",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "create",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "url_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "create",
+                        "create a service",
+                        "create an application",
+                        "create a deployment"
+                    ]
+                },
+                {
+                    "name": "deleteService",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "delete the Service",
+                        "delete Service",
+                        "delete deployment",
+                        "delete Tenant",
+                        "delete a deployment",
+                        "delete the Tenant",
+                        "delete the deployment",
+                        "delete a service"
+                    ]
+                },
+                {
+                    "name": "discover",
+                    "slots": [
+                        {
+                            "name": "tag_param",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "discover",
+                        "discover members",
+                        "discover nodes",
+                        "discover servers"
+                    ]
+                },
+                {
+                    "name": "health",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "report",
+                        "health",
+                        "show health",
+                        "report health"
+                    ]
+                },
+                {
+                    "name": "list",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "list",
+                        "list members",
+                        "list servers"
+                    ]
+                },
+                {
+                    "name": "addServer",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "servername_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "add",
+                        "add a member",
+                        "add member",
+                        "add server",
+                        "add a node",
+                        "add a server"
+                    ]
+                },
+                {
+                    "name": "deleteServer",
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "servername_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "delete member",
+                        "delete server",
+                        "delete a pool server",
+                        "delete a pool member",
+                        "delete a node",
+                        "delete a member",
+                        "delete a server"
+                    ]
+                },
+                {
+                    "name": "deleteAll",
+                    "slots": [
+                        {
+                            "name": "confirm_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "delete all"
+                    ]
+                },
+                {
+                    "name": "automate",
+                    "slots": [
+                        {
+                            "name": "details_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "automate a service {details_param}",
+                        "automate an application {details_param}"
+                    ]
+                },
+                {
+                    "name": "agilityDeploy",
+                    "slots": [],
+                    "samples": [
+                        "deploy the agility app"
+                    ]
+                },
+                {
+                    "name": "agilityStatus",
+                    "slots": [],
+                    "samples": [
+                        "what's the status of the agility app",
+                        "what is the status of the agility app"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "create",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "appname_param",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": true,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "confirmation": "Confirm.Slot.764496846499.447246336131",
+                                "elicitation": "Elicit.Slot.764496846499.447246336131"
+                            }
+                        },
+                        {
+                            "name": "url_param",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "automate",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "details_param",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": true,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "confirmation": "Confirm.Slot.1391670044997.1190665030367",
+                                "elicitation": "Elicit.Slot.1391670044997.1190665030367"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.764496846499.447246336131",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is the app name"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.764496846499.447246336131",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "is this correct?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1391670044997.1190665030367",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is app name"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.1391670044997.1190665030367",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "is this correct?"
+                    }
+                ]
+            }
+        ]
+    }
+}
