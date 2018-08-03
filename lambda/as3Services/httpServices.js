@@ -26,7 +26,6 @@ class HttpServices {
         port: 443                                                                                  
       };
       
-      console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
 
       switch (action) {
         case 'GET_BIGIP_NODES': 
@@ -39,20 +38,16 @@ class HttpServices {
         _options.path = '/mgmt/shared/appsvcs/declare';
         _options.method = 'Get';
         _body = {};
-        console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
         break;
         case 'DELETE_DECLARE':
         _options.path = '/mgmt/shared/appsvcs/declare';
         _options.method = 'Delete';
         _body = {};
-        console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
         break;
       default:
-      console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
       }
       
       const callback = function (res) {    
-        console.log('EEEEEEEEEEEEEEEEEEEEEEEEEE');
         var body = [];                                                                             
         res.on("data", function (chunk) {                                                          
           body.push(chunk);                                                                        
