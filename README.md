@@ -10,7 +10,7 @@ The Alexa demo project is located at:
 (https://gitswarm.f5net.com/hybridcloud/cloudproxy)
 
 ## ALEXA SUPPORTED AS3 DEMO TOPOLOGY
-![topology](https://user-images.githubusercontent.com/5133302/43617622-49ed07a0-9678-11e8-95f9-25a21b320968.PNG)
+![topology](https://user-images.githubusercontent.com/5133302/43618052-16b8df14-967b-11e8-89a2-6824ec1cacb6.png)
 
 ## ALEXA SUPPORTED AS3 DEMO UI DASHBOARD
 ![dashboard](https://user-images.githubusercontent.com/5133302/43617651-86a87fb2-9678-11e8-9e38-a69a0e0bc7e7.PNG)
