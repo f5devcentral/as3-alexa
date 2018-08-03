@@ -1,4 +1,4 @@
-# ALEXA DEMO PROJECT
+# ALEXA AS3 DEMO PROJECT
 
 # F5 Alexa Demo to showcase Alexa Virtual Assistant Support for AS3 Declarative Interface 
 
