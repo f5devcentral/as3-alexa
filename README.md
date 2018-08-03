@@ -7,7 +7,7 @@
 Welcome to the git repository for the F5 Alexa Demo.  
 
 The Alexa demo project is located at:
-(https://gitswarm.f5net.com/hybridcloud/cloudproxy)
+(https://github.com/F5Solutions/alexaas3)
 
 ## ALEXA SUPPORTED AS3 TOPOLOGY
 ![topology](https://user-images.githubusercontent.com/5133302/43618052-16b8df14-967b-11e8-89a2-6824ec1cacb6.png)
