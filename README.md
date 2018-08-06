@@ -19,9 +19,9 @@ With this skill set Administrators can:
 Project Components
   1) Alexa Skill to manage VE - alexaAs3Skill.json
   2) Lambda to translate Alexa Intents to AS3 requests - as3AlexaLib
-  3) AS3 deployments visualization WebApp
-      a) Lambda function to enable WebApp to discover AWS EC2 resources - AWSDiscovery
-      b) Lambda function to enable WebApp to query state of AS3 created resources on the VE
+  3) AS3 deployments visualization WebApp 
+      * Lambda function to enable WebApp to discover AWS EC2 resources - AWSDiscovery
+      * Lambda function to enable WebApp to query state of AS3 created resources on the VE
 
 Deployment Steps
   1) In progress
