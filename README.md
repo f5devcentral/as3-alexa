@@ -6,6 +6,26 @@
 
 Welcome to the git repository for the F5 Alexa Demo.  
 
+This project provides support for an Alexa Skill to manage applications on a VE in AWS leveraging the AS3 declarative interface.
+
+With this skill set Administrators can:
+  1) Fully automated deployment using AWS EC2 instance tags
+  2) Manually create/delete applications and all resources associated with the application
+  3) Discover AWS EC2 instances based on tag and and add to an application pool
+  3) Add/Delete servers from an application
+  4) List servers associated with an application
+  5) Visualize AS3 created deployments
+
+Project Components
+  1) Alexa Skill to manage VE - alexaAs3Skill.json
+  2) Lambda to translate Alexa Intents to AS3 requests - as3AlexaLib
+  3) AS3 deployments visualization WebApp
+      a) Lambda function to enable WebApp to discover AWS EC2 resources - AWSDiscovery
+      b) Lambda function to enable WebApp to query state of AS3 created resources on the VE
+
+Deployment Steps
+  1) In progress
+
 The Alexa demo project is located at:
 (https://github.com/F5Solutions/alexaas3)
 
