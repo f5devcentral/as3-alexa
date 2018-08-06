@@ -22,7 +22,6 @@ Node Controllers
         node.tags = [];
         node.info = '';
 
-        // Watching policy details
         $scope.$watch('node.tags', function (newVal, oldVal) {
             if (newVal !== oldVal) {
                 node.tags = newVal;
@@ -74,7 +73,6 @@ Node Controllers
 
         node.pollData = function (polling) {
             NodeFactory.resource.query((data) => {
-            // Keep nodes list in service to be used by DNodes
                 NodeFactory.setList(data);
                 const nodes = data.message;
                 if (nodes && nodes.length > 0) {
@@ -104,7 +102,6 @@ Node Controllers
         node.getData = function () {
             NodeFactory.resource.query((data) => {
                 const nodes = data.message;
-                // Keep nodes list in service to be used by DNodes
                 NodeFactory.setList(nodes);
                 if (nodes && nodes.length > 0) {
                     node.isData = true;

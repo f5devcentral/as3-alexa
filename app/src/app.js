@@ -31,12 +31,9 @@
         'ui.grid.validate', // Validation module is not stable as per UI Grid official website
 
         'angularSpinners',
-        // 'nodeDirectives',
 
-        /** Directives **/
         'homeDirectives',
 
-        /** Home level controller **/
         'mainControllers',
         'homeControllers',
         'nodeControllers',
@@ -48,7 +45,7 @@
 
     ]).
     config(['$stateProvider', '$urlRouterProvider', '$animateProvider', function ($stateProvider, $urlRouterProvider, $animateProvider) {
-    // Redirect to login page for authentication
+
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider.
@@ -78,18 +75,12 @@
             $http.defaults.headers.common['Content-Type'] = 'application/json';
             $http.defaults.headers.common.Accept = 'application/json';
 
-            // keep user logged in after page refresh
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            if ($rootScope.globals.currentUser) {
-                $http.defaults.headers.common.Authorization = `Basic ${$rootScope.globals.currentUser.authdata}`;
-            }
-
-        /** $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in
-          if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
-            $location.path('/login');
-          }
-        }); **/
+            /** $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in
+              if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+                $location.path('/login');
+              }
+            }); **/
 
 
         }

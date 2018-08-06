@@ -12,7 +12,6 @@
 
         const graph = {};
 
-        // Process Graph data
 
         graph.processData = (data) => {
             const tenants = data.message.tenants;
@@ -82,8 +81,6 @@
                         res.links.push(serviceLink);
 
 
-
-
                         // Build Virtual Server and Pool Members
                         const virtualServers = services[m].virtualServers;
                         const pool = services[m].pool;
@@ -148,12 +145,10 @@
                     }
                 }
             }
-            console.log('res ======================== ');
-            console.log(res);
+
             return { list: [res] };
         };
 
-        //graph.graphResource = $resource('data/rawGraph.json', {}, {
         graph.graphResource = $resource('https://6e3tjgtl1a.execute-api.us-west-2.amazonaws.com/default/as3Services', {}, {
             query: {
                 method: 'GET',

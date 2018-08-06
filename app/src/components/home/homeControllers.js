@@ -5,7 +5,6 @@
  * without express written permission of F5 Networks, Inc.
  */
 (function () {
-
     /**
 Home Controllers - Base Controllers for Home Page
 **/
@@ -51,7 +50,6 @@ Home Controllers - Base Controllers for Home Page
         graph.pollData = function (polling) {
             GraphService.graphResource.query((data) => {
                 if (data.message.tenants) {
-                    // Process data
                     const graphData = GraphService.processData(data);
                     if (graphData.list[0]) {
                         if (angular.equals(graphData.list[0], graph.latestGraph())) {
@@ -92,7 +90,6 @@ Home Controllers - Base Controllers for Home Page
         graph.getData = function () {
             GraphService.graphResource.query((data) => {
                 if (data.message.tenants) {
-                    // Process data
                     const graphData = GraphService.processData(data);
                     if (graphData.list[0]) {
                         if (angular.equals(graphData.list, graph.latestGraph())) {

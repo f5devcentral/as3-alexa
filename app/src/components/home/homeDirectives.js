@@ -81,8 +81,6 @@
                 style('opacity', 1);
 
                         // Grid Layout ===============================================================
-
-
                         const graph = data;
                         const nodes = graph.nodes;
                         const links = graph.links;
