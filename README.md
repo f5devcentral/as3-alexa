@@ -21,7 +21,7 @@ Project Components
   2) Lambda to translate Alexa Intents to AS3 requests - as3AlexaLib
   3) AS3 deployments visualization WebApp 
       * Lambda function to enable WebApp to discover AWS EC2 resources - AWSDiscovery
-      * Lambda function to enable WebApp to query state of AS3 created resources on the VE
+      * Lambda function to enable WebApp to query state of AS3 created resources on the VE - as3Services
 
 Deployment Steps
   1) In progress
