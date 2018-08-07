@@ -1362,7 +1362,7 @@ class AS3AlexaLib {
                 }
 
                 if (ips.length !== 0) {
-                    const request = DeclarationFactory.createDeclaration({type:'deployment', name: "agility", serviceIP: "10.10.10.10", ip: ips});  
+                    const request = DeclarationFactory.createDeclaration({type:'deployment', name: "agility", serviceIP: process.env.SERVER_IP , ip: ips});  
                     hs.execute('DEPLOY', request, Config.host, (err, res, body) => {
                         var message = null;
                         var responseObj = {};
@@ -1372,7 +1372,7 @@ class AS3AlexaLib {
                         } else {
                             message = `${(JSON.parse(body)).results[0].message}`;
                         }
-                        if (err || res.statusCode !== 200) {
+                        if (err || res.statusCode > 299) {
                             responseObj = {
                                 "version": "1.0",
                                 "sessionAttributes": {},
