@@ -1,0 +1,17 @@
+{
+  "name": "agility",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "contributors": [
+    "Steve Dabell <s.dabell@f5.com>",
+    "Jagir Maya Rai <j.rai@f5.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
