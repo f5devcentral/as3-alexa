@@ -2,7 +2,6 @@
   "name": "alexa-demo-as3",
   "version": "1.0.0",
   "description": "Demo to showcase Alexa support for AS3 Declarative Interface",
-  "private": true,
   "contributors": [
     "Steve Dabell <s.dabell@f5.com>",
     "Jagir Maya Rai <j.rai@f5.com>"
@@ -42,5 +41,5 @@
     "ui",
     "d3"
   ],
-  "license": "ISC"
+  "license": "MIT"
 }

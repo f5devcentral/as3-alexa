@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2018, F5 Networks, Inc. 
+ */
+
 const AWS = require('aws-sdk');
 const dns = require('dns');
 const hs = require('./httpServices');

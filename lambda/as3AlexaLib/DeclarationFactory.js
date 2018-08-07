@@ -1,4 +1,6 @@
-
+/**
+ * Copyright (c) 2018, F5 Networks, Inc. 
+ */
 
 class DeclarationFactory {
     

@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2018, F5 Networks, Inc. 
+ */
+
   const https = require("https"); 
   const _auth = new Buffer('admin:admin').toString("base64");
 
