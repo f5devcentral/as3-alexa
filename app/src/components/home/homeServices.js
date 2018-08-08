@@ -32,7 +32,8 @@
                     id: tenants[i].name,
                     group: 40,
                     type: 'tenant',
-                    status: 'online' // All tenants show 'online' status
+                    status: 'online', // All tenants show 'online' status,
+                    schema: tenants[i].schema
                 });
 
                 // Create links between Big IP and proxies
@@ -49,7 +50,8 @@
                         id: `${tenants[i].name}/${applications[k].name}`,
                         group: 30,
                         type: 'application',
-                        status: 'online' // All applications show 'online' status
+                        status: 'online', // All applications show 'online' status
+                        schema: applications[k].schema
                     });
 
                     // Create links between Tenant and applications
@@ -67,7 +69,8 @@
                             id: `${tenants[i].name}/${applications[k].name}/${services[m].name}`,
                             group: 20,
                             type: 'service',
-                            status: 'online' // All applications show 'online' status
+                            status: 'online', // All applications show 'online' status
+                            schema: services[m].schema
                         });
 
 
@@ -93,7 +96,8 @@
                                 id: `${tenants[i].name}/${applications[k].name}/${services[m].name}/${pool.name}`,
                                 group: 10,
                                 type: 'pool',
-                                status: 'online' // All pool show 'online' status
+                                status: 'online', // All pool show 'online' status
+                                schema: pool.schema
                             });
                         }
 
@@ -102,7 +106,8 @@
                                 id: `${tenants[i].name}/${applications[k].name}/${services[m].name}/${virtualServers[p].name}`,
                                 group: 15,
                                 type: 'virtualServer',
-                                status: 'online' // All virtual show 'online' status
+                                status: 'online', // All virtual show 'online' status
+                                schema: virtualServers[p].schema
                             });
 
                             // Create links between Service and Virtual Server
@@ -128,7 +133,8 @@
                                     group: 5,
                                     type: 'poolMember',
                                     status: poolMembers[q].status, // Pool Member show 'online' status for now
-                                    ip: poolMembers[q].name
+                                    ip: poolMembers[q].name,
+                                    schema: poolMembers[q].schema
                                 });
 
                                 // Create links between Pool and Pool Members

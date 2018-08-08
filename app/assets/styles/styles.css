@@ -1271,6 +1271,7 @@ section {
   padding: 5px 10px;
 }
 .d3-tip {
+  z-index: 9999999999;
   line-height: 1;
   font-weight: bold;
   padding: 12px;
@@ -1286,7 +1287,7 @@ section {
   width: 100%;
   line-height: 1;
   color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
+  /** content: "\25BC"; **/
   position: absolute;
   text-align: center;
 }
@@ -1796,4 +1797,27 @@ body {
 }
 .mic-container div img {
   width: 6em;
+}
+pre,
+code {
+  font-family: monospace, monospace;
+}
+pre {
+  overflow: auto;
+  display: block;
+  padding: 0.4em;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #fff;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+}
+pre > code {
+  display: block;
+  padding: 1rem;
+  word-wrap: normal;
 }
