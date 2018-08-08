@@ -41,7 +41,7 @@
                             } else if (d.group === 10) {
                                 return `<pre>Pool:<span>${d.id}</span><code>${JSON.stringify(d.schema, undefined, 2)}</code></pre>`;
                             } else if (d.group === 5) {
-                                return `<pre>Pool Member:<span>${d.id}</span><code>${JSON.stringify(d.schema, undefined, 2)}</code></pre>`;
+                                return `<pre>Pool Member:<span>${d.ip}</span><code>${JSON.stringify(d.schema, undefined, 2)}</code></pre>`;
                             }
 
                         });
