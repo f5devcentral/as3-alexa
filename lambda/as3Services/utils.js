@@ -32,27 +32,46 @@ class Utils {
                     decl[i].parent = i;
                 }
                 if (decl[i].class === 'Tenant') {
+                    // Remove parent
                     self.tenantCounter++;
                     self.appCounter = 0;
+
+                    // Create deep copy of schema
+                    let schema = JSON.parse(JSON.stringify(decl[i]));
+                    delete schema.parent;
+
                     let tenant = {
                         name: i,
-                        applications: []
+                        applications: [],
+                        schema: schema // For D3 Visualization
                     };
                     self.finalObj.tenants.push(tenant);
                 }
                 if (decl[i].class === 'Application') {
                     self.appCounter++;
                     self.classCounter = 0;
+
+                    // Create deep copy of schema
+                    let schema = JSON.parse(JSON.stringify(decl[i]));
+                    delete schema.parent;
+
                     let app = {
                         name: i,
-                        services: []
+                        services: [],
+                        schema: schema // For D3 Visualization
                     };
                     self.finalObj.tenants[self.tenantCounter - 1].applications.push(app);
                 }
                 if (self.serviceType(decl[i].class) === true) {
+
+                     // Create deep copy of schema
+                    let schema = JSON.parse(JSON.stringify(decl[i]));
+                    delete schema.parent;
+                                       
                     self.classCounter++;
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1] = {
-                        name: decl[i].parent
+                        name: decl[i].parent,
+                        schema: schema // For D3 Visualization
                     };
                 }
                 if (i === 'virtualAddresses') {
@@ -70,6 +89,12 @@ class Utils {
                                 detail.name = service;
                                 detail.virtualAddress = decl[i][k];
                             }
+
+                            // Create deep copy of schema
+                            let schema = JSON.parse(JSON.stringify(decl[i][k]));
+                            delete schema.parent;
+
+                            detail.schema = schema;
                             virtualServers.push(detail);
                         }
                     } else {
@@ -77,6 +102,12 @@ class Utils {
                             name: service,
                             virtualAddress: decl[i][0]
                         };
+
+                        // Create deep copy of schema
+                        let schema = JSON.parse(JSON.stringify(decl[i][0]));
+                        delete schema.parent;
+
+                        detail.schema = schema;
                         virtualServers.push(detail);
                     }
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1].virtualServers = virtualServers;
@@ -85,10 +116,16 @@ class Utils {
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1].virtualPort = decl[i];
                 }
                 if (decl[i].class === 'Pool') {
+
+                     // Create deep copy of schema
+                    let schema = JSON.parse(JSON.stringify(decl[i]));
+                    delete schema.parent;
+
                     self.poolCounter++;
                     let pool = {
                         name: i,
-                        poolMembers: []
+                        poolMembers: [],
+                        schema: schema
                     };
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1].pool = pool;
                 }
@@ -103,13 +140,24 @@ class Utils {
                         let newServer =  JSON.parse(JSON.stringify(self.isServer(nodes, servers[j])));
                         if(newServer) {
                            newServer.servicePort = servicePort; 
+
+                           // Create deep copy of schema
+                           let schema = JSON.parse(JSON.stringify(decl[i][j]));
+                           delete schema.parent;
+                           newServer.schema = schema;
                            poolMembers.push(newServer);
                         } else {
+
+                           // Create deep copy of schema
+                           let schema = JSON.parse(JSON.stringify(decl[i][j]));
+                           delete schema.parent;
+
                            poolMembers.push({
                               name: servers[j],
                               status: 'online', // Default to online
                               serverAddress: servers[j],
-                              servicePort: servicePort
+                              servicePort: servicePort,
+                              schema: schema
                            });
                         }
                     }
