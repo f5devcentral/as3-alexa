@@ -105,6 +105,9 @@ body {
     border-radius: 0.2em;
     padding: 1em;
 }
+.logo img {
+    width: 2em;
+}
 
 
 /*
