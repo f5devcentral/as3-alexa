@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018, F5 Networks, Inc. 
+ * Copyright 2018. F5 Networks, Inc.
  */
  
 

@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2018, F5 Networks, Inc. 
+ * Copyright 2018. F5 Networks, Inc.
  */
- 
+
 const httpServices = require('./httpServices');
 const Utils = require('./utils');
 
@@ -13,7 +13,7 @@ exports.handler = function(event, context, callback) {
     console.log(event); // Contains incoming request data (e.g., query params, headers and more)
     try {
         let nodes = [];
-        httpServices.execute('GET_BIGIP_NODES', {}, '35.160.118.96', (err, res, body) => {
+        httpServices.execute('GET_BIGIP_NODES', {}, process.env.VE_MGMT_IP, (err, res, body) => {
             if (err) {
                 console.log('Failed to get bigip nodes');
                 console.log(err);
@@ -50,7 +50,7 @@ exports.handler = function(event, context, callback) {
                     nodes = utils.getServers(data.items);
                 }
                  
-                httpServices.execute('GET_DECLARE', {}, '35.160.118.96', (err, res, body) => {
+                httpServices.execute('GET_DECLARE', {}, process.env.VE_MGMT_IP, (err, res, body) => {
                    
                     if (err) {
                         console.log('Failed to get Declaration');

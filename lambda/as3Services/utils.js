@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018, F5 Networks, Inc. 
+ * Copyright 2018. F5 Networks, Inc. 
  */
 
 class Utils {
@@ -28,20 +28,22 @@ class Utils {
             for (let i in decl) {
     
                 if (typeof decl[i] === 'object' && !Array.isArray(decl[i])) {
+                    // Add parent name
                     decl[i].parent = i;
                 }
                 if (decl[i].class === 'Tenant') {
-
+                    // Remove parent
                     self.tenantCounter++;
                     self.appCounter = 0;
 
+                    // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
                     let tenant = {
                         name: i,
                         applications: [],
-                        schema: schema
+                        schema: schema // For D3 Visualization
                     };
                     self.finalObj.tenants.push(tenant);
                 }
@@ -49,29 +51,31 @@ class Utils {
                     self.appCounter++;
                     self.classCounter = 0;
 
+                    // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
                     let app = {
                         name: i,
                         services: [],
-                        schema: schema
+                        schema: schema // For D3 Visualization
                     };
                     self.finalObj.tenants[self.tenantCounter - 1].applications.push(app);
                 }
                 if (self.serviceType(decl[i].class) === true) {
 
-
+                     // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
                                        
                     self.classCounter++;
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1] = {
                         name: decl[i].parent,
-                        schema: schema
+                        schema: schema // For D3 Visualization
                     };
                 }
                 if (i === 'virtualAddresses') {
+                    //finalObj.tenants[tenantCounter - 1].applications[appCounter - 1].virtualServers[classCounter - 1].virtualAddresses = decl[i];
                     // Also process them as virtual servers
                     let virtualServers = [];
                     let service = self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1].name;
@@ -86,6 +90,7 @@ class Utils {
                                 detail.virtualAddress = decl[i][k];
                             }
 
+                            // Create deep copy of schema
                             let schema = JSON.parse(JSON.stringify(decl[i][k]));
                             delete schema.parent;
 
@@ -98,6 +103,7 @@ class Utils {
                             virtualAddress: decl[i][0]
                         };
 
+                        // Create deep copy of schema
                         let schema = JSON.parse(JSON.stringify(decl[i][0]));
                         delete schema.parent;
 
@@ -111,6 +117,7 @@ class Utils {
                 }
                 if (decl[i].class === 'Pool') {
 
+                     // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
@@ -134,18 +141,20 @@ class Utils {
                         if(newServer) {
                            newServer.servicePort = servicePort; 
 
+                           // Create deep copy of schema
                            let schema = JSON.parse(JSON.stringify(decl[i][j]));
                            delete schema.parent;
                            newServer.schema = schema;
                            poolMembers.push(newServer);
                         } else {
 
+                           // Create deep copy of schema
                            let schema = JSON.parse(JSON.stringify(decl[i][j]));
                            delete schema.parent;
 
                            poolMembers.push({
                               name: servers[j],
-                              status: 'online',
+                              status: 'online', // Default to online
                               serverAddress: servers[j],
                               servicePort: servicePort,
                               schema: schema

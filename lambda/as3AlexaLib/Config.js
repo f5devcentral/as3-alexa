@@ -4,7 +4,7 @@
  
 const Config = {};
 
-Config.host = '35.160.118.96';
+Config.host = process.env.VE_MGMT_IP;
 
 module.exports = Config;
 

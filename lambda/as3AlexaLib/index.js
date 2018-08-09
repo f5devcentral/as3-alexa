@@ -45,17 +45,32 @@ class AS3AlexaLib {
                 var length = 0;
                 var tenant = `Tenant_${appName}`;
                 var app = `App_${appName}`;
+                var service = `Service_${appName}`;
                 var pool = `Pool_${appName}`;
                 var servers = [];
-                servers = (JSON.parse(body))[tenant][app][pool].members;
+                
+                if (!(JSON.parse(body))[tenant] ||
+                    !(JSON.parse(body))[tenant][app] ||
+                    !(JSON.parse(body))[tenant][app][pool]) {
+                        setTimeout(() => {
+                            callback(true, null, null, null);}, 5000);
+                        return;
+                    }
+                if ((JSON.parse(body))[tenant][app][pool].members) {
+                    servers = (JSON.parse(body))[tenant][app][pool].members[0].serverAddresses;
+                }
+                var virtuals = (JSON.parse(body))[tenant][app][service].virtualAddresses;
 
                 if (!servers) {
                     length = 0;
                 } else {
                     length = servers.length;
                 }
+                if (!servers) {
+                    servers = [];
+                }
                 setTimeout(() => {
-                    callback(null, length);}, 8000);
+                    callback(null, length, servers, virtuals);}, 5000);
             }
         });
     }
@@ -649,6 +664,118 @@ class AS3AlexaLib {
         }
     }
 
+    static handleDiscoverBrief(intent, state, attributes, callback) {
+        if ((state === 'STARTED' || state === 'IN_PROGRESS') && intent.slots.details_param.confirmationStatus === 'NONE') {
+            var tag = ((intent.slots.details_param.value).split(" "))[0];
+            var service = ((intent.slots.details_param.value).split('application '))[1];
+            tag = tag.trim();
+
+            if (!service) {
+                callback(null, {
+                    "version": "1.0",
+                    "sessionAttributes": {},
+                    "response": {
+                        "directives": [
+                        {
+                            "type": "Dialog.ElicitSlot",
+                            "slotToElicit": "details_param"
+                        }],
+                       "outputSpeech": {
+                          "type": "PlainText",
+                          "text": `Request not complete: Please describe the discover request using the following format: state the name of tag ollowed by application...  An example would be: chaos... to application agility... `
+                        },
+                        "shouldEndSession": false
+                    }
+                });                
+            }
+            AS3AlexaLib.getMembers(service, (err, numberOfServers, servers, virtuals) => {
+                if (err) {
+                    callback(null, {
+                        "version": "1.0",
+                        "sessionAttributes": {},
+                        "response": {
+                            "directives": [
+                            {
+                                "type": "Dialog.ElicitSlot",
+                                "slotToElicit": "details_param"
+                            }],
+                           "outputSpeech": {
+                              "type": "PlainText",
+                              "text": `Service ${service} not found: Please describe the discover request using the following format: state the name of service followed by the tag...  An example would be: widget... with tag... chaos`
+                            },
+                            "shouldEndSession": false
+                        }
+                    });                    
+                } else {
+                    AS3AlexaLib.discover((err, instancesData) => {  
+                        var ips = [];
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            instancesData.Reservations.forEach(reservation => {
+                                reservation.Instances.forEach(instance => {
+                                    instance.Tags.forEach((instanceTag) => {
+                                        if ((instanceTag.Key === 'App') && instanceTag.Value.toLowerCase() === tag.toString().toLowerCase()) {
+                                            ips.push(instance.PrivateIpAddress);
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                        ips.forEach((server) => {
+                            if (!servers.includes(server)) {
+                                servers.push(server);
+                            }
+                        });
+                        var request = DeclarationFactory.createDeclaration({type:'createWithMembers', name: service, ip: virtuals, ips: servers});
+                        console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHH');
+                        console.log(JSON.stringify(request, null, 3));
+                        hs.execute('CREATE', request, Config.host, (err, res, body) => {   
+                            var message = null;
+                            var responseObj = {};
+                            if (err || res.statusCode > 299) {
+                                if (err) {
+                                    message = null;
+                                } else {
+                                    if ((JSON.parse(body)).results) {
+                                        message = (JSON.parse(body)).results[0].message;
+                                    } else {
+                                        message = JSON.stringify(JSON.parse(body), null, 3);
+                                    }
+                                }
+                                responseObj = {
+                                    "version": "1.0",
+                                    "sessionAttributes": {},
+                                    "response": {
+                                        "outputSpeech": {
+                                            "type": "PlainText",
+                                            "text": `Application Services experienced an error creating AS3 resources to existing pool. Error message: ${message}`
+                                        },
+                                        "shouldEndSession": false
+                                    }
+                                };                                
+                            } else {
+                                responseObj = {
+                                   "version": "1.0",
+                                   "sessionAttributes": {},
+                                   "response": {
+                                       "outputSpeech": {
+                                            "type": "PlainText",
+                                            "text": `Application Services discovered and added ${ips.length} servers to application ${service}`
+                                        },
+                                        "shouldEndSession": false
+                                    }
+                                };
+                            }
+                            callback(null, responseObj);                                
+                        });
+                    });
+                }
+            });
+        }
+    }
+
+
     static handleHealth(intent, state, attributes, callback) {
         if ((state === 'STARTED' && (!attributes || attributes && !attributes.appname_param)) || 
             (state === 'IN_PROGRESS' && intent.slots.appname_param.confirmationStatus === 'DENIED')) {
@@ -953,161 +1080,56 @@ class AS3AlexaLib {
                         });
                     });
                 }
+
                 if (ips[0]) {
-                  ip = [ips[0]];
-                }
-                if (ip.length !== 0) {
-//                    var request = DeclarationFactory.createDeclaration({type:'addMember', name: intent.slots.appname_param.value, ip: ip});
                     var responseObj = {};
                     var message = null;
-                    AS3AlexaLib.getMembers(attributes.appname_param, (err, numberOfServers) => {
-                    if (err) {
-                        
-                    } else if (numberOfServers > 0) {
-                        var request = DeclarationFactory.createDeclaration({type:'addMember', name: intent.slots.appname_param.value, ip: ip});
-                        hs.execute('ADD', request, Config.host, (err, res, body) => {                        
-                            if (err || res.statusCode > 299) {
-                                if (err) {
-                                    message = null;
-                                } else {
-                                    if ((JSON.parse(body)).results) {
-                                        message = (JSON.parse(body)).results[0].message;
-                                    } else {
-                                        message = JSON.stringify(JSON.parse(body), null, 3);
-                                    }
-                                }
-                                responseObj = {
-                                    "version": "1.0",
-                                    "sessionAttributes": {},
-                                    "response": {
-                                        "outputSpeech": {
-                                            "type": "PlainText",
-                                            "text": `Application Services experienced an error creating AS3 resources to existing pool. Error message: ${message}`
-                                        },
-                                        "shouldEndSession": false
-                                    }
-                                };                                
-                            } else {
-                                responseObj = {
-                                   "version": "1.0",
-                                   "sessionAttributes": newAttributes,
-                                   "response": {
-                                       "outputSpeech": {
-                                          "type": "PlainText",
-                                          "text": `Application Services ${type}ed ${intent.slots.servername_param.value} ${preposition} service ${intent.slots.appname_param.value} : `
-                                        },
-                                        "shouldEndSession": false
-                                    }
-                                };
-                            }
-                            callback(null, responseObj);                                
-                        });
-                    } else {  // empty pool
-                        request = DeclarationFactory.createDeclaration({type:'addPool', name: intent.slots.appname_param.value, ip: ip});  
-                        hs.execute('ADD', request, Config.host, (err, res, body) => {
-                            console.log('RESULTS');
-                            console.log(JSON.parse(body), null, 3);
-                            if (err) {
-                                message = null;
-                            } else {
-                                if ((JSON.parse(body)).results) {
-                                    message = (JSON.parse(body)).results[0].message;
-                                } else {
-                                    message = JSON.stringify(JSON.parse(body), null, 3);
-                                }
-                            }
-                            if (err || res.statusCode > 299) {
-                                responseObj = {
-                                    "version": "1.0",
-                                    "sessionAttributes": {},
-                                    "response": {
-                                        "outputSpeech": {
-                                            "type": "PlainText",
-                                            "text": `Application Services experienced an error creating AS3 resources.  Error message: ${message}`
-                                        },
-                                        "shouldEndSession": false
-                                    }
-                                };
-                            } else {
-                                responseObj = {
-                                   "version": "1.0",
-                                   "sessionAttributes": newAttributes,
-                                   "response": {
-                                       "outputSpeech": {
-                                          "type": "PlainText",
-                                          "text": `Application Services ${type}ed ${intent.slots.servername_param.value} ${preposition} service ${intent.slots.appname_param.value} `
-                                        },
-                                        "shouldEndSession": false
-                                    }
-                                };
-                            }
-                            callback(null, responseObj);
-                        });
-                    }
-                    });        
+                    AS3AlexaLib.getMembers(attributes.appname_param, (err, numberOfServers, servers, virtuals) => {
+                        if (err) {
                             
-                            
-/*                        
-                    hs.execute('ADD', request, Config.host, (err, res, body) => {
-                        var responseObj = {};
-                        var message = null;
+                        } else {
+                            servers.push(ips[0]);
+                            var request = DeclarationFactory.createDeclaration({type:'createWithMembers', name: intent.slots.appname_param.value, ip: virtuals, ips: servers});
 
-                        if (err || res.statusCode > 299) {
-                            setTimeout(() => {
-                                request = DeclarationFactory.createDeclaration({type:'addPool', name: intent.slots.appname_param.value, ip: ip});  
-                                hs.execute('ADD', request, Config.host, (err, res, body) => {
-                                    console.log('RESULTS');
-                                    console.log(JSON.parse(body), null, 3);
+                            hs.execute('CREATE', request, Config.host, (err, res, body) => {                        
+                                if (err || res.statusCode > 299) {
                                     if (err) {
                                         message = null;
                                     } else {
-                                        message = `${(JSON.parse(body)).results[0].message}`;
+                                        if ((JSON.parse(body)).results) {
+                                            message = (JSON.parse(body)).results[0].message;
+                                        } else {
+                                            message = JSON.stringify(JSON.parse(body), null, 3);
+                                        }
                                     }
-                                    
-                                    if (err || res.statusCode > 299) {
-                                        responseObj = {
-                                            "version": "1.0",
-                                            "sessionAttributes": {},
-                                            "response": {
-                                                "outputSpeech": {
-                                                    "type": "PlainText",
-                                                    "text": `Application Services experienced an error creating AS3 resources.  Error message: ${message}`
-                                                },
-                                                "shouldEndSession": false
-                                            }
-                                        };
-                                    } else {
-                                        responseObj = {
-                                           "version": "1.0",
-                                           "sessionAttributes": newAttributes,
-                                           "response": {
-                                               "outputSpeech": {
-                                                  "type": "PlainText",
-                                                  "text": `Application Services ${type}ed ${intent.slots.servername_param.value} ${preposition} service ${intent.slots.appname_param.value} `
-                                                },
-                                                "shouldEndSession": false
-                                            }
-                                        };
-                                    }
-                                    callback(null, responseObj);
-                                });
-                            }, 10000);
-                        } else {
-                            responseObj = {
-                               "version": "1.0",
-                               "sessionAttributes": newAttributes,
-                               "response": {
-                                   "outputSpeech": {
-                                      "type": "PlainText",
-                                      "text": `Application Services ${type}ed ${intent.slots.servername_param.value} ${preposition} service ${intent.slots.appname_param.value} : `
-                                    },
-                                    "shouldEndSession": false
+                                    responseObj = {
+                                        "version": "1.0",
+                                        "sessionAttributes": {},
+                                        "response": {
+                                            "outputSpeech": {
+                                                "type": "PlainText",
+                                                "text": `Application Services experienced an error creating AS3 resources to existing pool. Error message: ${message}`
+                                            },
+                                            "shouldEndSession": false
+                                        }
+                                    };                                
+                                } else {
+                                    responseObj = {
+                                       "version": "1.0",
+                                       "sessionAttributes": newAttributes,
+                                       "response": {
+                                           "outputSpeech": {
+                                              "type": "PlainText",
+                                              "text": `Application Services ${type}ed ${intent.slots.servername_param.value} ${preposition} service ${intent.slots.appname_param.value} : `
+                                            },
+                                            "shouldEndSession": false
+                                        }
+                                    };
                                 }
-                            };
-                            callback(null, responseObj);
+                                callback(null, responseObj);                                
+                            });
                         }
-                    });
-                    */
+                    });        
                 } else {
                     callback(null, {
                        "version": "1.0",
@@ -1314,7 +1336,7 @@ class AS3AlexaLib {
                 newAttributes = {};
                 newAttributes.appname_param = intent.slots.appname_param.value;
             }               
-            AS3AlexaLib.getMembers(intent.slots.appname_param.value, (err, response) => {
+            AS3AlexaLib.getMembers(intent.slots.appname_param.value, (err, response, servers, virtuals) => {
                 if (err) {
                     callback(null, {
                         "version": "1.0",
@@ -1418,15 +1440,21 @@ class AS3AlexaLib {
 
     static handleAgilityStatus(intent, state, attributes, callback) {
         if (state === 'STARTED') {
-            callback(null, {
-                "version": "1.0",
-                "sessionAttributes": {},
-                "response": {
-                   "outputSpeech": {
-                      "type": "PlainText",
-                      "text": `${process.env.USER_NAME}, the Agility App is ready to go`
-                    },
-                    "shouldEndSession": false
+            AS3AlexaLib.getMembers('agility', (err, numberOfServers, servers, virtuals) => {
+                if (err) {
+                    
+                } else {
+                    callback(null, {
+                        "version": "1.0",
+                        "sessionAttributes": {},
+                        "response": {
+                           "outputSpeech": {
+                              "type": "PlainText",
+                              "text": `${process.env.USER_NAME}, the Agility App is ready to go with ${numberOfServers} servers`
+                            },
+                            "shouldEndSession": false
+                        }
+                    });
                 }
             });
         }
@@ -1530,6 +1558,9 @@ exports.handler = (event, context, callback) => {
                     break;
                 case 'discover':
                     response = AS3AlexaLib.handleDiscover(event.request.intent, event.request.dialogState, event.session.attributes, callback);
+                    break;
+                case 'discoverBrief':
+                    response = AS3AlexaLib.handleDiscoverBrief(event.request.intent, event.request.dialogState, event.session.attributes, callback);
                     break;
                 case 'health':
                     response = AS3AlexaLib.handleHealth(event.request.intent, event.request.dialogState, event.session.attributes, callback);
