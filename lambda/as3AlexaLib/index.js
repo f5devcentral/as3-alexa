@@ -684,7 +684,7 @@ class AS3AlexaLib {
                           "type": "PlainText",
                           "text": `Request not complete: Please describe the discover request using the following format: state the name of tag ollowed by application...  An example would be: chaos... to application agility... `
                         },
-                        "shouldEndSession": false
+                        "shouldEndSession": true
                     }
                 });                
             }
@@ -703,7 +703,7 @@ class AS3AlexaLib {
                               "type": "PlainText",
                               "text": `Service ${service} not found: Please describe the discover request using the following format: state the name of service followed by the tag...  An example would be: widget... with tag... chaos`
                             },
-                            "shouldEndSession": false
+                            "shouldEndSession": true
                         }
                     });                    
                 } else {
@@ -728,8 +728,6 @@ class AS3AlexaLib {
                             }
                         });
                         var request = DeclarationFactory.createDeclaration({type:'createWithMembers', name: service, ip: virtuals, ips: servers});
-                        console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHH');
-                        console.log(JSON.stringify(request, null, 3));
                         hs.execute('CREATE', request, Config.host, (err, res, body) => {   
                             var message = null;
                             var responseObj = {};
@@ -751,7 +749,7 @@ class AS3AlexaLib {
                                             "type": "PlainText",
                                             "text": `Application Services experienced an error creating AS3 resources to existing pool. Error message: ${message}`
                                         },
-                                        "shouldEndSession": false
+                                        "shouldEndSession": true
                                     }
                                 };                                
                             } else {
@@ -763,7 +761,7 @@ class AS3AlexaLib {
                                             "type": "PlainText",
                                             "text": `Application Services discovered and added ${ips.length} servers to application ${service}`
                                         },
-                                        "shouldEndSession": false
+                                        "shouldEndSession": true
                                     }
                                 };
                             }
@@ -1403,7 +1401,7 @@ class AS3AlexaLib {
                                         "type": "PlainText",
                                         "text": `Application Services experienced an error creating AS3 resources.  Error message: ${message}`
                                     },
-                                    "shouldEndSession": false
+                                    "shouldEndSession": true
                                 }
                             };
                         } else {
@@ -1415,7 +1413,7 @@ class AS3AlexaLib {
                                         "type": "PlainText",
                                         "text": `Okay ${process.env.USER_NAME}, deploying the Agility App`
                                     },
-                                    "shouldEndSession": false
+                                    "shouldEndSession": true
                                 }
                             };
                         }
@@ -1430,7 +1428,7 @@ class AS3AlexaLib {
                                 "type": "PlainText",
                                 "text": `Application Services could not discover any servers tagged with... ${tag} `
                             },
-                            "shouldEndSession": false
+                            "shouldEndSession": true
                         }                        
                     });
                 }
@@ -1452,7 +1450,7 @@ class AS3AlexaLib {
                               "type": "PlainText",
                               "text": `${process.env.USER_NAME}, the Agility App is ready to go with ${numberOfServers} servers`
                             },
-                            "shouldEndSession": false
+                            "shouldEndSession": true
                         }
                     });
                 }

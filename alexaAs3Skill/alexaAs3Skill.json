@@ -70,10 +70,8 @@
                         }
                     ],
                     "samples": [
-                        "discover",
                         "discover members",
-                        "discover nodes",
-                        "discover servers"
+                        "discover nodes"
                     ]
                 },
                 {
@@ -186,6 +184,18 @@
                     "samples": [
                         "what's the status of the agility app",
                         "what is the status of the agility app"
+                    ]
+                },
+                {
+                    "name": "discoverBrief",
+                    "slots": [
+                        {
+                            "name": "details_param",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "discover servers with tag {details_param}"
                     ]
                 }
             ],

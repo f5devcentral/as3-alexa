@@ -55,7 +55,7 @@ class DeclarationFactory {
             "virtualAddresses": [
               `${ip}`
             ],
-            "virtualPort": 443,
+            "virtualPort": 80,
             "pool": `${pool}`
           },
           [pool]: {
@@ -93,14 +93,14 @@ class DeclarationFactory {
             "virtualAddresses": [
               `${ip}`
             ],
-            "virtualPort": 443,
+            "virtualPort": 80,
             "pool": `${pool}`
           },
           [pool]: {
             "class": "Pool",
             "members": [
               {
-                "servicePort": 443,
+                "servicePort": 80,
                 "serverAddresses": ips
               }
               ]
@@ -136,14 +136,14 @@ class DeclarationFactory {
             "virtualAddresses": [
               `${serviceIP}`
             ],
-            "virtualPort": 443,
+            "virtualPort": 80,
             "pool": `${pool}`
           },
           [pool]: {
             "class": "Pool",
             "members": [
               {
-                "servicePort": 443,
+                "servicePort": 80,
                 "serverAddresses":ip
               }]
           }
@@ -164,7 +164,7 @@ class DeclarationFactory {
         "op":"add",
         "path":`/${tenant}/${app}/${pool}/members/-`,
         "value":{
-          "servicePort":443,
+          "servicePort":80,
           "serverAddresses": ip
         }
       }
@@ -185,7 +185,7 @@ class DeclarationFactory {
           "class": "Pool",
           "members": [
             {
-              "servicePort":443,
+              "servicePort":80,
               "serverAddresses": ip
             }
           ]
