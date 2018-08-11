@@ -28,22 +28,19 @@ class Utils {
             for (let i in decl) {
     
                 if (typeof decl[i] === 'object' && !Array.isArray(decl[i])) {
-                    // Add parent name
                     decl[i].parent = i;
                 }
                 if (decl[i].class === 'Tenant') {
-                    // Remove parent
                     self.tenantCounter++;
                     self.appCounter = 0;
 
-                    // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
                     let tenant = {
                         name: i,
                         applications: [],
-                        schema: schema // For D3 Visualization
+                        schema: schema
                     };
                     self.finalObj.tenants.push(tenant);
                 }
@@ -51,27 +48,25 @@ class Utils {
                     self.appCounter++;
                     self.classCounter = 0;
 
-                    // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
                     let app = {
                         name: i,
                         services: [],
-                        schema: schema // For D3 Visualization
+                        schema: schema
                     };
                     self.finalObj.tenants[self.tenantCounter - 1].applications.push(app);
                 }
                 if (self.serviceType(decl[i].class) === true) {
 
-                     // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
                                        
                     self.classCounter++;
                     self.finalObj.tenants[self.tenantCounter - 1].applications[self.appCounter - 1].services[self.classCounter - 1] = {
                         name: decl[i].parent,
-                        schema: schema // For D3 Visualization
+                        schema: schema
                     };
                 }
                 if (i === 'virtualAddresses') {
@@ -90,7 +85,6 @@ class Utils {
                                 detail.virtualAddress = decl[i][k];
                             }
 
-                            // Create deep copy of schema
                             let schema = JSON.parse(JSON.stringify(decl[i][k]));
                             delete schema.parent;
 
@@ -103,7 +97,6 @@ class Utils {
                             virtualAddress: decl[i][0]
                         };
 
-                        // Create deep copy of schema
                         let schema = JSON.parse(JSON.stringify(decl[i][0]));
                         delete schema.parent;
 
@@ -117,7 +110,6 @@ class Utils {
                 }
                 if (decl[i].class === 'Pool') {
 
-                     // Create deep copy of schema
                     let schema = JSON.parse(JSON.stringify(decl[i]));
                     delete schema.parent;
 
@@ -141,14 +133,12 @@ class Utils {
                         if(newServer) {
                            newServer.servicePort = servicePort; 
 
-                           // Create deep copy of schema
                            let schema = JSON.parse(JSON.stringify(decl[i][j]));
                            delete schema.parent;
                            newServer.schema = schema;
                            poolMembers.push(newServer);
                         } else {
 
-                           // Create deep copy of schema
                            let schema = JSON.parse(JSON.stringify(decl[i][j]));
                            delete schema.parent;
 
